@@ -14,6 +14,21 @@ const PlaylistType = new GraphQLObjectType({
     name: {
       type: GraphQLString,
       resolve: (playlist) => playlist.name
+    },
+    musics: {
+      type: new GraphQLList(MusicType),
+      resolve: (playlist) => playlist.musics
+    }
+  })
+})
+
+const MusicType = new GraphQLObjectType({
+  name: 'Music',
+  description: 'awesome music',
+  fields: () => ({
+    title: {
+      type: GraphQLString,
+      resolve: (music) => music.title
     }
   })
 })
