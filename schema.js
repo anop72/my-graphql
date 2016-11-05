@@ -3,7 +3,8 @@ import fetch from 'node-fetch'
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLList
 } from 'graphql';
 
 const PlaylistType = new GraphQLObjectType({
@@ -25,6 +26,12 @@ const QueryType = new GraphQLObjectType({
       type: PlaylistType,
       resolve: (root) =>
         fetch('http://www.anop72.info/api/playlist_v2.json')
+          .then(res => res.json())
+    },
+    playlists: {
+      type: new GraphQLList(PlaylistType),
+      resolve: (root) =>
+        fetch('http://www.anop72.info/api/playlists_v2.json')
           .then(res => res.json())
     }
   }),
